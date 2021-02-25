@@ -10,7 +10,7 @@ struct SampleConverter: ParsableCommand {
     var file: String
     
     mutating func run() throws {
-        Bootstrap.start(with: URL(string: file)!)
+        Bootstrap.start(with: URL(fileURLWithPath: file, isDirectory: false))
     }
 }
 
