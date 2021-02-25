@@ -1,9 +1,21 @@
 
-import Foundation
+import ComposableArchitecture
 
-public struct Loader {
-    public init() {}
-    public func load(_ file: String) {
-        print(file)
+struct Loader: Equatable {
+    
+}
+
+enum LoaderAction: Equatable {
+    case load(file: String)
+}
+
+struct LoaderEnvironment {
+    var printer: (String) -> Effect<Never, Never>
+}
+
+let loaderReducer = Reducer<Loader, LoaderAction, LoaderEnvironment> { state, action, environment in
+    switch action {
+    case let .load(file: file):
+        return environment.printer(file).fireAndForget()
     }
 }

@@ -9,8 +9,7 @@ struct SampleConverter: ParsableCommand {
     var file: String
     
     mutating func run() throws {
-        let loader = Loader()
-        loader.load(file)
+        Bootstrap.start(with: file)
     }
 }
 

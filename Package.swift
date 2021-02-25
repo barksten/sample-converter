@@ -5,8 +5,12 @@ import PackageDescription
 
 let package = Package(
     name: "sample-converter",
+    platforms: [
+        .macOS(.v10_15),
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.3.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.13.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -20,10 +24,15 @@ let package = Package(
         ),
         .target(
             name: "MediaLoader",
-            dependencies: []
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
         ),
         .testTarget(
             name: "sample-converterTests",
             dependencies: ["sample-converter"]),
+        .testTarget(
+            name: "MediaLoaderTests",
+            dependencies: ["MediaLoader"]),
     ]
 )
