@@ -1,4 +1,5 @@
 import ArgumentParser
+import Foundation
 import MediaLoader
 
 struct SampleConverter: ParsableCommand {
@@ -9,7 +10,7 @@ struct SampleConverter: ParsableCommand {
     var file: String
     
     mutating func run() throws {
-        Bootstrap.start(with: file)
+        Bootstrap.start(with: URL(string: file)!)
     }
 }
 

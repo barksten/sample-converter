@@ -2,13 +2,13 @@
 import ComposableArchitecture
 
 public struct Bootstrap {
-    public static func start(with file: String) {
+    public static func start(with url: URL) {
         let store = Store(
             initialState: Loader(),
             reducer: loaderReducer,
             environment: .live
         )
         let viewStore = ViewStore(store)
-        viewStore.send(.load(file: file))
+        viewStore.send(.load(url))
     }
 }
