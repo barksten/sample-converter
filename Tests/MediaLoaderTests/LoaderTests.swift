@@ -34,7 +34,9 @@ class LoaderTests: XCTestCase {
         
         store.assert([
             .send(.load(url)),
-            .receive(.loadingResult(.success(result)))
+            .receive(.loadingResult(.success(result))) {
+                $0.asset = self.result
+            }
         ])
     }
     
@@ -52,6 +54,19 @@ class LoaderTests: XCTestCase {
         store.assert([
             .send(.load(URL(string: "test://")!)),
             .receive(.loadingResult(.failure(AssetLoaderError())))
+        ])
+    }
+    
+    func testDump() {
+
+        let store = TestStore(
+            initialState: Loader(asset: result),
+            reducer: loaderReducer.debug(),
+            environment: env
+        )
+        
+        store.assert([
+            .send(.dumpAsset),
         ])
     }
 }
